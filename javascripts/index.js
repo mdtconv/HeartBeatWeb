@@ -8,18 +8,23 @@ var animation = bodymovin.loadAnimation({
 
 var socket = io('http://13.125.124.80:3000');
 
+let beforeHeartBeat = 0;
+
 socket.on('connect', () => {
   
 })
 
 socket.on('heartbeat', (_heartbeat) => {
-  let heartbeat = parseInt(_heartbeat);
+  let thisHeartbeat = parseInt(_heartbeat);
   console.log('now heartbeat is', heartbeat);
-  if(heartbeat > 0) { // valid
-    animation.setSpeed(heartbeat/60);    
+  if(beforeHeartBeat === 0 && thisHeartbeat !== 0 ) {
+    animation.play();
+  }
+  if(thisHeartbeat > 0) { // valid
+    animation.setSpeed(thisHeartbeat/60);    
+    beforeHeartBeat = thisHeartbeat;
   } else { // invalid
     animation.goToAndStop(0);
-  }  
-
-
+    beforeHeartBeat = 0;
+  }
 })
