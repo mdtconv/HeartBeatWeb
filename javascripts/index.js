@@ -12,7 +12,14 @@ socket.on('connect', () => {
   
 })
 
-socket.on('heartbeat', (heartbeat) => {
+socket.on('heartbeat', (_heartbeat) => {
+  let heartbeat = parseInt(_heartbeat);
   console.log('now heartbeat is', heartbeat);
-  animation.setSpeed(parseInt(heartbeat)/60);
+  if(heartbeat > 0) { // valid
+    animation.setSpeed(heartbeat/60);    
+  } else { // invalid
+    animation.goToAndStop(0);
+  }  
+
+
 })
