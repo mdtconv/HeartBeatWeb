@@ -16,7 +16,7 @@ socket.on('connect', () => {
 
 socket.on('heartbeat', (_heartbeat) => {
   let thisHeartbeat = parseInt(_heartbeat);
-  console.log('now heartbeat is', heartbeat);
+  console.log('now heartbeat is', thisHeartbeat);
   if(beforeHeartBeat === 0 && thisHeartbeat !== 0 ) {
     animation.play();
   }
