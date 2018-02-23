@@ -14,7 +14,7 @@ socket.on('connect', () => {
   
 })
 
-let audio = new Audio('./../heartbeat1seconds.m4a');
+let audio = new Audio('./../heartbeat1seconds.mp3');
 
 setInterval(() => {
   audio.play();
