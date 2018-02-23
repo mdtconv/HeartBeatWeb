@@ -7,18 +7,13 @@ var animation = bodymovin.loadAnimation({
 })
 
 var socket = io('http://13.125.124.80:3000');
+let audio = new Audio('./../heartbeat1seconds.mp3');
 
 let beforeHeartBeat = 0;
 
 socket.on('connect', () => {
   
 })
-
-let audio = new Audio('./../heartbeat1seconds.mp3');
-
-setInterval(() => {
-  audio.play();
-}, 1000);
 
 socket.on('heartbeat', (_heartbeat) => {
   let thisHeartbeat = parseInt(_heartbeat);
@@ -27,6 +22,7 @@ socket.on('heartbeat', (_heartbeat) => {
     animation.play();
   }
   if(thisHeartbeat > 0) { // valid
+    audio.play(); // response got every 1 seconds
     animation.setSpeed(thisHeartbeat/60);    
     beforeHeartBeat = thisHeartbeat;
   } else { // invalid
