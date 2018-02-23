@@ -3,24 +3,34 @@ var animation = bodymovin.loadAnimation({
   renderer: 'svg',
   loop: true,
   autoplay: true,
-  path: './../animation'
+  path: './../animation.json'
 })
 
-/*
-var socket = io('http://localhost:3000');
+var socket = io('http://13.125.124.80:3000');
+
+let beforeHeartBeat = 0;
 
 socket.on('connect', () => {
   
 })
 
-socket.on('heartbeat', (heartbeat) => {
-  console.log('now heartbeat is', heartbeat);
-  animation.setSpeed(parseInt(heartbeat)/60);
-})
-*/
-
 let audio = new Audio('./../heartbeat1seconds.m4a');
 
 setInterval(() => {
   audio.play();
-}, 1000)
+}, 1000);
+
+socket.on('heartbeat', (_heartbeat) => {
+  let thisHeartbeat = parseInt(_heartbeat);
+  console.log('now heartbeat is', thisHeartbeat);
+  if(beforeHeartBeat === 0 && thisHeartbeat !== 0 ) {
+    animation.play();
+  }
+  if(thisHeartbeat > 0) { // valid
+    animation.setSpeed(thisHeartbeat/60);    
+    beforeHeartBeat = thisHeartbeat;
+  } else { // invalid
+    animation.goToAndStop(0);
+    beforeHeartBeat = 0;
+  }
+})
