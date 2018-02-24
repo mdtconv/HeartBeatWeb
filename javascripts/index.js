@@ -20,6 +20,7 @@ socket.on('connect', () => {
 socket.on('heartbeat', (_heartbeat) => { // response got every 1 seconds
   let thisHeartbeat = parseInt(_heartbeat);
   console.log('now heartbeat is', thisHeartbeat);
+  if(thisHeartbeat > 150) return;
   // console.log('triggerFlag is', triggerFlag);
   if(beforeHeartBeat === 0 && thisHeartbeat !== 0 ) {
     animation.play();
@@ -34,6 +35,8 @@ socket.on('heartbeat', (_heartbeat) => { // response got every 1 seconds
       // play
       
     }
+    audio.load();
+    audio.play();
     animation.stop();
     animation.setSpeed(thisHeartbeat/60);    
     animation.play();
