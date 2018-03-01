@@ -8,6 +8,7 @@ var animation = bodymovin.loadAnimation({
 
 var socket = io('http://13.125.124.80:3000');
 let audio = new Audio('./../heartbeat1seconds.mp3');
+let textBox = document.getElementById('txtBox')
 
 let beforeHeartBeat = 0;
 
@@ -21,6 +22,7 @@ socket.on('heartbeat', (_heartbeat) => { // response got every 1 seconds
   let thisHeartbeat = parseInt(_heartbeat);
   console.log('now heartbeat is', thisHeartbeat);
   if(thisHeartbeat > 150) return;
+  textBox.innerHTML = ""+thisHeartbeat;
   // console.log('triggerFlag is', triggerFlag);
   if(beforeHeartBeat === 0 && thisHeartbeat !== 0 ) {
     animation.play();
@@ -35,7 +37,8 @@ socket.on('heartbeat', (_heartbeat) => { // response got every 1 seconds
       // play
       
     }
-    audio.load();
+    audio.pause();
+    audio.currentTime = 0;
     audio.play();
     animation.stop();
     animation.setSpeed(thisHeartbeat/60);    
