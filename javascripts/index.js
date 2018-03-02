@@ -3,8 +3,13 @@ var animation = bodymovin.loadAnimation({
   renderer: 'svg',
   loop: false,
   autoplay: false,
-  path: './../animation.json'
+  path: './../animations/animation_black.json'
+  // './../animations/animation_black.json'
+  // './../animations/animation_original.json'
+  // './../animations/animation_white.json'
 })
+
+
 
 var socket = io('http://13.125.124.80:3000');
 let audio = new Audio('./../heartbeat1seconds.mp3');
