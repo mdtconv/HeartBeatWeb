@@ -3,7 +3,7 @@ var animation = bodymovin.loadAnimation({
   renderer: 'svg',
   loop: false,
   autoplay: false,
-  path: './../animations/animation_black.json'
+  path: './../animations/animation_original.json'
   // './../animations/animation_black.json'
   // './../animations/animation_original.json'
   // './../animations/animation_white.json'
